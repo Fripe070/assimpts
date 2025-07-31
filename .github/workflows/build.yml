@@ -25,7 +25,9 @@ jobs:
             - name: Setup Cpp
               uses: aminya/setup-cpp@v1
               with:
-                cmake: true
+                  compiler: llvm
+                  cmake: true
+                  ninja: true
 
             - name: Install Emscripten
               run: |

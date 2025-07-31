@@ -3,6 +3,7 @@ dist
 dist-demo
 build
 build-wasm
+.cache
 
 scripts/emsdk
 
