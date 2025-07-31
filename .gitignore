@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-demo
+build
+build-wasm
+
+scripts/emsdk
+
+# Editor directories and files
+.vscode/*
+.idea
+.DS_Store
