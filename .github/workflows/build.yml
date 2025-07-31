@@ -31,7 +31,8 @@ jobs:
 
             - name: Install Emscripten
               run: |
-                  chmod +x ./tools/install-emscripten.sh ./tools/activate-emscripten.sh
+                  chmod -x ${{ env.BUILD_PATH }}/tools/install-emscripten.sh 
+                  chmod -x ${{ env.BUILD_PATH }}/tools/activate-emscripten.sh
                   ./tools/install-emscripten.sh
               working-directory: ${{ env.BUILD_PATH }}
 
