@@ -23,6 +23,6 @@ cd "$EMSDK_DIR"
 cd - > /dev/null
 
 echo "Activating Emscripten SDK..."
-"$SCRIPT_DIR/activate-emscripten.sh" "$VERSION"
+source "$SCRIPT_DIR/activate-emscripten.sh" "$VERSION"
 
 echo "Emscripten SDK installation completed!"
