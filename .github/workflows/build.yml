@@ -37,6 +37,7 @@ jobs:
 
       - name: Build
         run: |
+          ./scripts/activate-emscripten.sh
           chmod +x ./scripts/build.sh
           ./scripts/build.sh
         working-directory: ${{ env.BUILD_PATH }}
