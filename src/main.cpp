@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <assimp/version.h>
+#include <emscripten/bind.h>
 
 
 std::string getAssimpVersion() {
@@ -9,8 +10,6 @@ std::string getAssimpVersion() {
            std::to_string(aiGetVersionPatch());
 }
 
-int main() {
-    std::cout << "Hello world!" << std::endl;
-    std::cout << "Assimp Version: " << getAssimpVersion() << std::endl;
-    return 0;
+EMSCRIPTEN_BINDINGS(assimpts) {
+    emscripten::function("getAssimpVersion", &getAssimpVersion);
 }

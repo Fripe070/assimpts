@@ -18,17 +18,23 @@ set(ASSIMP_BUILD_ASSJSON_EXPORTER           ON  CACHE BOOL "")
 
 add_subdirectory(assimp)
 
-if (CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
-    message(STATUS "Configuring Emscripten/WebAssembly build")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --emit-tsd assimpts.d.ts" CACHE STRING "" FORCE)
-endif()
-
 set(ASSIMPTS_SOURCES
     src/main.cpp
 )
 
 add_executable(AssimpTS)
 target_sources(AssimpTS PRIVATE ${ASSIMPTS_SOURCES})
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+    message(STATUS "Configuring Emscripten/WebAssembly build")
+    set_target_properties(AssimpTS PROPERTIES OUTPUT_NAME "assimpts") # Lowercase filenames
+    target_link_options(AssimpTS PRIVATE --emit-tsd assimpts.d.ts)
+	target_link_options(AssimpTS PRIVATE -lembind)
+
+	target_link_options(AssimpTS PRIVATE -sMODULARIZE=1)
+	target_link_options(AssimpTS PRIVATE -sEXPORT_ES6=1)
+	target_link_options(AssimpTS PRIVATE -sEXPORT_NAME=loadAssimpTS)
+endif()
 
 target_link_libraries(AssimpTS PRIVATE assimp)
 target_include_directories(AssimpTS PRIVATE assimp/include)
