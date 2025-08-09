@@ -36,7 +36,9 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Build
-        run: bun run build
+        run: |
+          chmod +x ./scripts/build.sh
+          ./scripts/build.sh
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
