@@ -7,11 +7,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(BUILD_SHARED_LIBS                       OFF CACHE BOOL "")
+set(ASSIMP_BUILD_ZLIB                       ON  CACHE BOOL "")
 set(ASSIMP_INSTALL                          OFF CACHE BOOL "")
 set(ASSIMP_BUILD_TESTS                      OFF CACHE BOOL "")
 set(ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT   ON  CACHE BOOL "")
 set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT   OFF CACHE BOOL "")
-set(ASSIMP_BUILD_ZLIB                       ON  CACHE BOOL "")
+
+# Allows exporting as a JSON object that can be used in JS
+set(ASSIMP_BUILD_ASSJSON_EXPORTER           ON  CACHE BOOL "")
 
 add_subdirectory(assimp)
 
