@@ -31,15 +31,13 @@ jobs:
 
       - name: Install Emscripten
         run: |
-          chmod +x ./scripts/install-emscripten.sh ./scripts/activate-emscripten.sh
-          ./scripts/install-emscripten.sh
+          source ./scripts/install-emscripten.sh
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Build
         run: |
-          ./scripts/activate-emscripten.sh
-          chmod +x ./scripts/build.sh
-          ./scripts/build.sh
+          source ./scripts/activate-emscripten.sh
+          source ./scripts/build.sh
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
