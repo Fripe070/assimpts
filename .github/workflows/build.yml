@@ -48,6 +48,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "build-${{ matrix.type }}"
+          name: "build-${{ matrix.configuration }}"
           if-no-files-found: error
           path: ${{ env.BUILD_PATH }}/dist
