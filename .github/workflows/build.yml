@@ -11,6 +11,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: ["Debug", "Release"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,12 +42,12 @@ jobs:
       - name: Build
         run: |
           source ./scripts/activate-emscripten.sh
-          source ./scripts/build.sh
+          source ./scripts/build.sh "${{ matrix.configuration }}"
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "build-artifact"
+          name: "build-${{ matrix.type }}"
           if-no-files-found: error
           path: ${{ env.BUILD_PATH }}/dist

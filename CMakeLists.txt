@@ -11,7 +11,8 @@ set(ASSIMP_BUILD_ZLIB                       ON  CACHE BOOL "")
 set(ASSIMP_INSTALL                          OFF CACHE BOOL "")
 set(ASSIMP_BUILD_TESTS                      OFF CACHE BOOL "")
 set(ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT   ON  CACHE BOOL "")
-set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT   OFF CACHE BOOL "")
+# set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT   OFF CACHE BOOL "")
+set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT   ON CACHE BOOL "")
 
 # Allows exporting as a JSON object that can be used in JS
 set(ASSIMP_BUILD_ASSJSON_EXPORTER           ON  CACHE BOOL "")
@@ -20,10 +21,11 @@ add_subdirectory(assimp)
 
 set(ASSIMPTS_SOURCES
     src/main.cpp
+	src/web_io.cpp
+    src/util.h
 )
 
-add_executable(AssimpTS)
-target_sources(AssimpTS PRIVATE ${ASSIMPTS_SOURCES})
+add_executable(AssimpTS ${ASSIMPTS_SOURCES})
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     message(STATUS "Configuring Emscripten/WebAssembly build")
@@ -34,6 +36,10 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
 	target_link_options(AssimpTS PRIVATE -sMODULARIZE=1)
 	target_link_options(AssimpTS PRIVATE -sEXPORT_ES6=1)
 	target_link_options(AssimpTS PRIVATE -sEXPORT_NAME=loadAssimpTS)
+    target_link_options(AssimpTS PRIVATE -sALLOW_MEMORY_GROWTH=1)
+
+	target_compile_options(AssimpTS PRIVATE -fwasm-exceptions)
+	target_link_options(AssimpTS PRIVATE -fwasm-exceptions)
 endif()
 
 target_link_libraries(AssimpTS PRIVATE assimp)
