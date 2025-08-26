@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuration: ["Debug", "Release"]
+        configuration: ["Debug", "MinSizeRel"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
