@@ -1,28 +1,39 @@
 #!/bin/bash
-set -e
+GREEN="\033[1;32m"
+RED="\033[1;31m"
+RESET="\033[0m"
 
+set -e
 VERSION=${1:-"latest"}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EMSDK_DIR="$SCRIPT_DIR/emsdk"
 
 # Clone or update
 if [ -d "$EMSDK_DIR" ]; then
-    echo "Updating existing Emscripten SDK..."
-    cd "$EMSDK_DIR"
+    echo -e "${GREEN}Updating existing Emscripten SDK...${RESET}"
+    pushd "$EMSDK_DIR" > /dev/null
     git pull
-    cd - > /dev/null
+    popd > /dev/null
 else
-    echo "Cloning Emscripten SDK..."
+    echo -e "${GREEN}Cloning Emscripten SDK...${RESET}"
     git clone https://github.com/emscripten-core/emsdk.git "$EMSDK_DIR"
 fi
 
 # Install and activate
-echo "Installing Emscripten SDK version: $VERSION"
-cd "$EMSDK_DIR"
+pushd "$EMSDK_DIR" > /dev/null
 ./emsdk install "$VERSION"
-cd - > /dev/null
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Emscripten SDK installation failed. Exiting.${RESET}"
+    popd > /dev/null
+    exit 1
+fi
+popd > /dev/null
 
-echo "Activating Emscripten SDK..."
-source "$SCRIPT_DIR/activate-emscripten.sh" "$VERSION"
-
-echo "Emscripten SDK installation completed!"
+echo -e "${GREEN}Activating Emscripten SDK...${RESET}"
+bash "$SCRIPT_DIR/activate-emscripten.sh"
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}Emscripten SDK installed and activated successfully!${RESET}"
+else
+    echo -e "${RED}Emscripten SDK activation failed. Exiting.${RESET}"
+    exit 1
+fi

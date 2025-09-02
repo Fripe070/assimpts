@@ -1,12 +1,10 @@
 #!/bin/bash
-set -e
-
-BuildType="${1:-Debug}"
-
-# Colors (best-effort; harmless if terminal doesn't support)
 GREEN="\033[32m"
 CYAN="\033[36m"
 RESET="\033[0m"
+
+set -e
+BuildType="${1:-Debug}"
 
 echo -e "${GREEN}Building with Emscripten for WebAssembly...${RESET}"
 echo -en "${GREEN}Build Type: ${RESET}"

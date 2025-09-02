@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AssimpTS Example</title>
+    </head>
+    <body>
+        <h2>Assimp Version: <span id="assimp-version">0.0.0</span></h2>
+        <input id="file-input" type="file" multiple />
+        <br />
+        <code><pre id="data">Nothing yet...</pre></code>
+
+        <script type="module">
+            import init from "./assimpts.js";
+            const assimp = await init();
+
+            // We can get the version of assimp loaded through the library
+            document.getElementById("assimp-version").textContent = assimp.getAssimpVersion();
+
+            // And we can process files
+            const fileInput = document.getElementById("file-input");
+            fileInput.addEventListener("change", async (event) => {
+                const files = event.target.files;
+                if (files.length === 0) {
+                    document.getElementById("data").textContent = "No files selected.";
+                    return;
+                }
+
+                const loadedFiles = [];
+                for (const file of files) {
+                    loadedFiles.push({
+                        data: new Uint8Array(await file.arrayBuffer()),
+                        path: file.name,
+                    });
+                }
+                const models = assimp.processFiles(
+                    loadedFiles,
+                    // Output format. assjson is assimp's own JSON format for model output
+                    "assjson",
+                    // Flags
+                    assimp.PostProcessFlags.targetRealtime_Quality.value
+                );
+                const decoder = new TextDecoder("utf-8");
+                const json = JSON.parse(decoder.decode(models[0]));
+                document.getElementById("data").textContent = JSON.stringify(json, null, 2);
+            });
+        </script>
+    </body>
+</html>

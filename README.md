@@ -1,72 +1,31 @@
 # Assimpts
 
-A TypeScript library template optimized for Bun.
-
-## Installation
-
-```bash
-bun add assimpts
-```
+TypeScript wrapper around the [Assimp](https://github.com/assimp/assimp) C/C++ library compiled as WASM through [Emscripten](https://emscripten.org/).
+Heavily inspired by [assimpjs](https://github.com/kovacsv/assimpjs).
 
 ## Usage
-
-```typescript
-import { setupCounter } from "assimpts";
-
-const button = document.querySelector<HTMLButtonElement>("#my-button")!;
-setupCounter(button);
-```
-
-## Development
-
-This project uses [Bun](https://bun.sh/) for fast package management and script execution.
-
-### Building the library
-
+Install the package with
 ```bash
-bun run build
+npm install assimpts
 ```
+See the [examples](./examples/) for how to use the library. 
 
-### Running the demo
+## Build
+Required build tools:
+- CMake
+- Ninja
+- C++ Compiler of your choice
 
+### Linux
 ```bash
-bun run demo:dev
+./scripts/install-emscripten.sh # Only needed on first install
+./scripts/activate-emscripten.sh # Activate environment for current session
+./scripts/build.sh
+```
+### Windows
+```powershell
+./scripts/install-emscripten.ps1 # Only needed on first install
+./scripts/activate-emscripten.ps1 # Activate environment for current session
+./scripts/build.ps1
 ```
 
-### Building the demo
-
-```bash
-bun run demo:build
-```
-
-### Installing dependencies
-
-```bash
-bun install
-```
-
-## Project Structure
-
-```
-├── src/                # Library source code
-│   └── index.ts       # Main library entry point
-├── demo/               # Demo/example application
-│   ├── src/           # Demo source files
-│   ├── public/        # Demo public assets
-│   └── index.html     # Demo HTML file
-├── dist/               # Built library output (auto-generated)
-├── bun.lock           # Bun lockfile
-├── package.json        # Package configuration
-├── tsconfig.json       # TypeScript configuration
-├── vite.config.ts      # Vite build configuration
-└── README.md           # This file
-```
-
-## Why Bun?
-
-This template uses Bun for:
-
--   ⚡ **Faster installs** - Bun installs packages ~10-100x faster than npm
--   🚀 **Faster script execution** - Bun runs scripts significantly faster
--   🔧 **Built-in TypeScript** - No need for separate TypeScript compilation in development
--   📦 **Better monorepo support** - Great for managing library + demo together

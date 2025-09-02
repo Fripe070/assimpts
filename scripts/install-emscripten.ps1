@@ -7,12 +7,12 @@ $EmsdkDir = Join-Path $PSScriptRoot "emsdk"
 
 # Clone or update
 if (Test-Path $EmsdkDir) {
-    Write-Host "Updating existing Emscripten SDK..." -ForegroundColor Yellow
+    Write-Host "Updating existing Emscripten SDK..." -ForegroundColor Green
     Push-Location $EmsdkDir
     git pull
     Pop-Location
 } else {
-    Write-Host "Cloning Emscripten SDK..." -ForegroundColor Yellow
+    Write-Host "Cloning Emscripten SDK..." -ForegroundColor Green
     git clone https://github.com/emscripten-core/emsdk.git $EmsdkDir
 }
 

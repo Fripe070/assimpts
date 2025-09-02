@@ -1,27 +1,29 @@
 {
   "name": "assimpts",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "description": "TypeScript wrapper around Assimp compiled to WASM.",
+  "keywords": ["assimp", "wasm", "emscripten", "3d", "model-loader", "typescript"],
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
-  "main": "./dist/assimpts.umd.cjs",
-  "module": "./dist/assimpts.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/assimpts.js",
+  "types": "./dist/assimpts.d.ts",
   "exports": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/assimpts.js",
-    "require": "./dist/assimpts.umd.cjs"
+    "types": "./dist/assimpts.d.ts",
+    "default": "./dist/assimpts.js"
   },
-  "scripts": {
-    "dev": "vite demo",
-    "build": "vite build",
-    "build:demo": "vite build demo"
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fripe070/assimpts.git"
   },
-  "devDependencies": {
-    "typescript": "~5.8.3",
-    "vite": "^7.0.0",
-    "vite-plugin-dts": "^4.5.4"
-  }
+  "bugs": {
+    "url": "https://github.com/Fripe070/assimpts/issues"
+  },
+  "homepage": "https://github.com/Fripe070/assimpts#readme",
+  "author": "Fripe",
+  "license": "MIT"
 }
