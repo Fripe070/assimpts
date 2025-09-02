@@ -15,7 +15,11 @@
     "types": "./dist/assimpts.d.ts",
     "default": "./dist/assimpts.js"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "node scripts/activate-emscripten.js && node scripts/build.js",
+    "activate": "node scripts/activate-emscripten.js",
+    "setup": "node scripts/install-emscripten.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Fripe070/assimpts.git"
