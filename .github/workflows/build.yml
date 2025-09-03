@@ -33,7 +33,9 @@ jobs:
           ninja: true
 
       - name: Build
-        run: npm run build "${{ matrix.configuration }}"
+        run: |
+          npm run activate
+          npm run build "${{ matrix.configuration }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
