@@ -34,7 +34,7 @@ jobs:
 
       - name: Build
         run: |
-          npm run activate
+          scripts/emsdk/emsdk activate latest
           npm run build "${{ matrix.configuration }}"
 
       - name: Upload artifact
